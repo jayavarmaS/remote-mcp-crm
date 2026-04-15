@@ -10,7 +10,7 @@ app = FastAPI()
 
 BASE_URL = "http://127.0.0.1:8000"  # change later after backend deploy
 
-# 🔹 TOOL: Signup
+# 🔹 TOOL: Signup#
 @mcp.tool()
 def signup(email: str, password: str):
     res = requests.post(
