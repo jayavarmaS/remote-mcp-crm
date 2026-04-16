@@ -45,4 +45,4 @@ def get_customers(user_id: str):
     return requests.get(f"{BASE_URL}/customers/{user_id}").json()
 
 # ✅ IMPORTANT CHANGE
-app.mount("/sse", mcp.sse_app())
+app.mount("/sse/", mcp.sse_app())
