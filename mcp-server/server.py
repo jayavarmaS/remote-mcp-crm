@@ -8,13 +8,11 @@ import os
 mcp = FastMCP("CRM Assistant")
 app = FastAPI()
 
-# ✅ FIX HOST
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["*", "remote-mcp-crm.onrender.com"]
+    allowed_hosts=["*"]
 )
 
-# ✅ FIX CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -24,6 +22,10 @@ app.add_middleware(
 )
 
 BASE_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
+
+@app.get("/")
+def root():
+    return {"status": "ok"}
 
 @mcp.tool()
 def signup(email: str, password: str):
@@ -44,5 +46,5 @@ def add_customer(name: str, email: str, user_id: str):
 def get_customers(user_id: str):
     return requests.get(f"{BASE_URL}/customers/{user_id}").json()
 
-# ✅ IMPORTANT CHANGE
-app.mount("/sse/", mcp.sse_app())
+# ✅ FINAL FIX
+app.mount("/sse", mcp.sse_app())
