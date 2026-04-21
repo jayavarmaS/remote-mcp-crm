@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from db import supabase
-from models.schemas import Customer
+from backend.db import supabase
+from backend.models.schemas import Customer
 
 router = APIRouter()
 
